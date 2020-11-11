@@ -21,4 +21,60 @@ public class NoteEntity {
     private int folder_id;
     @ColumnInfo(name = NoteTable.Columns.FAVORITE)
     private int favorite;
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public long getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(long end_time) {
+        this.end_time = end_time;
+    }
+
+    public int getFolder_id() {
+        return folder_id;
+    }
+
+    public void setFolder_id(int folder_id) {
+        this.folder_id = folder_id;
+    }
+
+    public int getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(int favorite) {
+        this.favorite = favorite;
+    }
 }

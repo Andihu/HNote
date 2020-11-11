@@ -13,18 +13,21 @@ import java.util.List;
 public interface NoteDao {
 
     @Insert
-    public long insertNote(NoteEntity... noteEntities);
+    public long insertNote(NoteEntity noteEntities);
 
     @Update
-    public long updateNote(NoteEntity... noteEntities);
+    public int updateNote(NoteEntity... noteEntities);
 
     @Query("SELECT * FROM note ORDER BY ID")
     LiveData<List<NoteEntity>> queryAllNotes();
 
     @Delete
-    public long deleteNote(NoteEntity... noteEntities);
+    public int deleteNote(NoteEntity noteEntities);
 
     @Query("SELECT * FROM note WHERE favorite == 1 ORDER BY ID")
     LiveData<List<NoteEntity>> queryAllFavoriteNotes();
+
+    @Query("SELECT * FROM note WHERE folder_id=:id")
+    LiveData<List<NoteEntity>> queryAllNoteByFolderId(long id);
 
 }

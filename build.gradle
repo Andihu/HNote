@@ -22,3 +22,13 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext{
+     room_version = "2.2.5"
+     nav_version = "2.3.1"
+     lifecycle_version = "2.2.0"
+     logger_version="2.2.0"
+     XRichText = "1.9.4"
+     xxpermissions = "9.2"
+     rxJava3RxAndroidVersion = '3.0.0'
+}
