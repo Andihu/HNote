@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="WRichEditor">
+        <attr name="linkColor" format="reference|color" />
+        <attr name="linkUnderline" format="reference|boolean" />
+        <attr name="headlineTextSize" format="reference|dimension" />
+        <attr name="scrollBottomDeltaY" format="reference|dimension" />
+        <attr name="editorColor" format="reference|color" />
+    </declare-styleable>
+
+</resources>

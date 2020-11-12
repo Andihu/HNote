@@ -20,7 +20,7 @@ public class PreviewFragment extends BaseFragment<FragmentPreviewLayoutBinding> 
 
     }
     private void initTitleBar() {
-        mViewDataBinding.titleBar.setBackIcon(R.drawable.back);
+        mViewDataBinding.titleBar.setBackIcon(R.drawable.back_btn);
         mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem( 1,R.drawable.send,true));
         mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(2,R.drawable.delete,true));
         mViewDataBinding.titleBar.setMenuClickListener(titleMenuItem -> {

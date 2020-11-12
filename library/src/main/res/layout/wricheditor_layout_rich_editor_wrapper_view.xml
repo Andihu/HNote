@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/wricheditor_rich_editor_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/fl_left_container_in_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <!--  引用/无序列表  -->
+        <ImageView
+            android:id="@+id/iv_in_wrapper"
+            android:layout_width="@dimen/wrich_editor_text_size"
+            android:layout_height="@dimen/wrich_editor_text_size"
+            android:layout_marginTop="@dimen/wrich_editor_unordered_list_margin_top"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+
+        <!--  有序列表  -->
+        <TextView
+            android:id="@+id/tv_in_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wrich_editor_ordered_list_margin_top"
+            android:gravity="center"
+            android:minWidth="@dimen/wrich_editor_text_size"
+            android:textSize="@dimen/wrich_editor_text_size"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <cn.carbs.wricheditor.library.WEditText
+        android:id="@+id/w_rich_editor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/fl_left_container_in_wrapper"
+        android:background="@drawable/wre_bg_wrich_editor"
+        android:fallbackLineSpacing="false"
+        android:lineSpacingExtra="@dimen/wrich_editor_padding_bottom"
+        android:textSize="@dimen/wrich_editor_text_size" />
+
+<!--    android:lineHeight="@dimen/wrich_editor_line_height"-->
+<!--    android:paddingBottom="@dimen/wrich_editor_padding_bottom"-->
+</RelativeLayout>

@@ -23,19 +23,20 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
     }
 
     private void initTitleBar() {
-        mViewDataBinding.titleBar.setBackIcon(R.drawable.back);
-        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(2,R.drawable.done,true));
-        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem( 1,R.drawable.image,true));
+        mViewDataBinding.titleBar.setBackIcon(R.drawable.back_btn);
+        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(2, R.drawable.done_btn, true));
+        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(1, R.drawable.image_btn, true));
         mViewDataBinding.titleBar.setMenuClickListener(titleMenuItem -> {
-            switch (titleMenuItem.getId()){
+            switch (titleMenuItem.getId()) {
                 case 1:
-                    Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    Toast.makeText(getContext(),"2",Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_editorFragment_to_previewFragment);
+                    Toast.makeText(getContext(), "2", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(getActivity(), R.id.fragment).navigate(R.id.action_editorFragment_to_previewFragment);
                     break;
-                default:break;
+                default:
+                    break;
             }
         });
         mViewDataBinding.titleBar.setOnBackClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_editorFragment_to_noteListFragment));

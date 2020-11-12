@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,13 +9,46 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.hdemo.hnote.ui.widget.TitleBar
+            android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:id="@+id/title_bar"
             android:background="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+        <cn.carbs.wricheditor.library.WRichEditor
+            android:id="@+id/wrich_editor_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_below="@id/title_bar"
+            android:clipToPadding="false"
+            android:paddingBottom="42dp"
+            app:editorColor="#FF513930"
+            app:headlineTextSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar"
+            app:layout_constraintVertical_bias="0.0"
+            app:linkColor="#FF2196F3"
+            app:scrollBottomDeltaY="80dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+
+            <include layout="@layout/menu_layout"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
