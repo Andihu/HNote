@@ -8,12 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#745E50</color>
-    <color name="colorPrimaryDark">#786352 </color>
-    <color name="divider">#564439</color>
-    <color name="textColor">#69432B</color>
-    <color name="tipTextColor">#B8A68F</color>
-
+    <color name="colorPrimaryDark">#2176FF</color>
+    <color name="colorPrimary">#0366D6 </color>
+    <color name="divider">#FDCA40</color>
+    <color name="textColor">#F79824</color>
+    <color name="tipTextColor">#31393C</color>
+    <color name="color_1">#00479A</color>
 
 
 </resources>

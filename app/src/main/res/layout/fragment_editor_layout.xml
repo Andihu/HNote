@@ -19,23 +19,28 @@
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-        <cn.carbs.wricheditor.library.WRichEditor
-            android:id="@+id/wrich_editor_view"
+        <!--<androidx.appcompat.widget.AppCompatEditText
+            android:padding="10dp"
+            android:textColor="@color/tipTextColor"
+            android:id="@+id/edit_context"
+            android:gravity="top"
+            android:textSize="20sp"
+            android:text="casdcsa\ncsdcsd"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_below="@id/title_bar"
-            android:clipToPadding="false"
-            android:paddingBottom="42dp"
-            app:editorColor="#FF513930"
-            app:headlineTextSize="18dp"
             app:layout_constraintBottom_toTopOf="@+id/menu"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_bar"
-            app:layout_constraintVertical_bias="0.0"
-            app:linkColor="#FF2196F3"
-            app:scrollBottomDeltaY="80dp" />
+            android:background="@null"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar" />-->
+
+        <com.hdemo.hnote.ui.widget.NoteEditText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/menu"
@@ -45,7 +50,116 @@
             app:layout_constraintStart_toStartOf="parent">
 
 
-            <include layout="@layout/menu_layout"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/blod"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu_bg"
+                    android:drawableTop="@drawable/ic_blod"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="加粗"
+                    android:textColor="#1479AA"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#89B5FF" />
+
+                <TextView
+                    android:id="@+id/blockquote"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu_bg"
+                    android:drawableTop="@drawable/ic_blockquote"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="引用"
+                    android:textColor="#1479AA"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#89B5FF" />
+
+                <TextView
+                    android:id="@+id/unordered_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu_bg"
+                    android:drawableTop="@drawable/ic_unordered_list__1_"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="列表"
+                    android:textColor="#1479AA"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#89B5FF" />
+
+                <TextView
+                    android:id="@+id/justify_center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu_bg"
+                    android:drawableTop="@drawable/ic_text_justify_center"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="居中"
+                    android:textColor="#1479AA"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="#89B5FF" />
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/menu_bg"
+                    android:drawableTop="@drawable/ic_heading_1"
+                    android:drawablePadding="3dp"
+                    android:gravity="center"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="标题"
+                    android:textColor="#1479AA"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

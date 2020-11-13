@@ -1,13 +1,18 @@
 package com.hdemo.hnote.ui;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.navigation.Navigation;
 import com.hdemo.hnote.R;
 import com.hdemo.hnote.base.BaseFragment;
 import com.hdemo.hnote.databinding.FragmentEditorLayoutBinding;
+import com.hdemo.hnote.markdown.MDWriter;
 import com.hdemo.hnote.ui.widget.TitleBar;
 
 public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
+
+    private MDWriter mMDWriter;
+
     @Override
     protected int getLayoutRes() {
         return R.layout.fragment_editor_layout;
@@ -20,6 +25,18 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
     @Override
     protected void initView() {
         initTitleBar();
+
+//        mMDWriter = new MDWriter(mViewDataBinding.editContext);
+
+        /*mViewDataBinding.blod.setOnClickListener(view -> mMDWriter.setAsBold());
+
+        mViewDataBinding.heading.setOnClickListener(view -> mMDWriter.setAsHeader());
+
+        mViewDataBinding.blockquote.setOnClickListener(view -> mMDWriter.setAsQuote());
+
+        mViewDataBinding.justifyCenter.setOnClickListener(view -> mMDWriter.setAsCenter());
+
+        mViewDataBinding.unorderedList.setOnClickListener(view -> mMDWriter.setAsList());*/
     }
 
     private void initTitleBar() {
