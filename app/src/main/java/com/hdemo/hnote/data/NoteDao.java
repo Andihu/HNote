@@ -28,6 +28,6 @@ public interface NoteDao {
     LiveData<List<NoteEntity>> queryAllFavoriteNotes();
 
     @Query("SELECT * FROM note WHERE folder_id=:id")
-    LiveData<List<NoteEntity>> queryAllNoteByFolderId(long id);
+    LiveData<NoteEntity> queryNoteByFolderId(long id);
 
 }

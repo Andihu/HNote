@@ -14,12 +14,12 @@
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:background="@color/colorPrimary"
+            android:background="#2176FF"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-        <!--<androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:padding="10dp"
             android:textColor="@color/tipTextColor"
             android:id="@+id/edit_context"
@@ -32,15 +32,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@null"
-            app:layout_constraintTop_toBottomOf="@+id/title_bar" />-->
-
-        <com.hdemo.hnote.ui.widget.NoteEditText
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/menu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_bar" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/menu"

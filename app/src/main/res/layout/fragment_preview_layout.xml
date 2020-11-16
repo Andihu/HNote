@@ -14,7 +14,7 @@
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:background="@color/colorPrimary"
+            android:background="#2176FF"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent" />

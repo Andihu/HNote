@@ -26,9 +26,9 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
     protected void initView() {
         initTitleBar();
 
-//        mMDWriter = new MDWriter(mViewDataBinding.editContext);
+        mMDWriter = new MDWriter(mViewDataBinding.editContext);
 
-        /*mViewDataBinding.blod.setOnClickListener(view -> mMDWriter.setAsBold());
+        mViewDataBinding.blod.setOnClickListener(view -> mMDWriter.setAsBold());
 
         mViewDataBinding.heading.setOnClickListener(view -> mMDWriter.setAsHeader());
 
@@ -36,7 +36,7 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
 
         mViewDataBinding.justifyCenter.setOnClickListener(view -> mMDWriter.setAsCenter());
 
-        mViewDataBinding.unorderedList.setOnClickListener(view -> mMDWriter.setAsList());*/
+        mViewDataBinding.unorderedList.setOnClickListener(view -> mMDWriter.setAsList());
     }
 
     private void initTitleBar() {

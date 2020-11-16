@@ -14,6 +14,9 @@
     <color name="textColor">#F79824</color>
     <color name="tipTextColor">#31393C</color>
     <color name="color_1">#00479A</color>
+    <color name="note_edittext_line_color">#43A047</color>
+    <color name="note_edittext_line_number_color">#1E88E5</color>
+    <color name="note_edittext_line_number_rect_color">#7CB342</color>
 
 
 </resources>

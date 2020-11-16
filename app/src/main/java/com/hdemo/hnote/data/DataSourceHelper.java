@@ -38,6 +38,11 @@ public class DataSourceHelper {
         return noteDao.queryAllNotes();
     }
 
+    public LiveData<NoteEntity> getNoteById(long id){
+        return noteDao.queryNoteByFolderId(id);
+    }
+
+
     public LiveData<List<NoteEntity>> getAllFavoriteNotes() {
         return noteDao.queryAllFavoriteNotes();
     }
