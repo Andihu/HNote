@@ -23,4 +23,7 @@ public interface FolderDao {
     @Query(value = "SELECT * FROM folder ORDER BY id")
     public LiveData<List<FolderEntity>> getAllFolder();
 
+    @Query(value = "SELECT * FROM folder WHERE id=:folderId")
+    public LiveData<FolderEntity> getFolderById(long folderId);
+
 }

@@ -27,7 +27,10 @@ public interface NoteDao {
     @Query("SELECT * FROM note WHERE favorite == 1 ORDER BY ID")
     LiveData<List<NoteEntity>> queryAllFavoriteNotes();
 
-    @Query("SELECT * FROM note WHERE folder_id=:id")
-    LiveData<NoteEntity> queryNoteByFolderId(long id);
+    @Query("SELECT * FROM note WHERE id =:id ")
+    NoteEntity queryNotesById(long id);
+
+    @Query("SELECT * FROM note WHERE folder_id=:id ORDER BY id DESC")
+    LiveData<List<NoteEntity>> queryNoteByFolderId(long id);
 
 }

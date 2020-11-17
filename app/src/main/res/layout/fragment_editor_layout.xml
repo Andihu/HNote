@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="data"
+            type="com.hdemo.hnote.ui.NoteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,9 +27,9 @@
             android:id="@+id/edit_context"
             android:gravity="top"
             android:textSize="20sp"
-            android:text="casdcsa\ncsdcsd"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:text="@{data.currentNote.content}"
             app:layout_constraintBottom_toTopOf="@+id/menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

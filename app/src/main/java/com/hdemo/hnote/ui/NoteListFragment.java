@@ -1,19 +1,28 @@
 package com.hdemo.hnote.ui;
 
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hdemo.hnote.R;
 import com.hdemo.hnote.base.BaseFragment;
+import com.hdemo.hnote.data.NoteEntity;
 import com.hdemo.hnote.databinding.FragmentNoteListLayoutBinding;
 import com.hdemo.hnote.ui.widget.TitleBar;
+import com.hdemo.hnote.utils.SpUtil;
 
 
 public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding> {
 
+    private RecyclerAdapter adapter;
+
+    private NoteViewModel noteViewModel;
+
+    private int current_folder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,8 +41,9 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
         mViewDataBinding.titleBar.setMenuClickListener(titleMenuItem -> {
             switch (titleMenuItem.getId()){
                 case 1:
-                    Toast.makeText(getContext(),"1",Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(EditorFragment.KEY_WORK_CODE, EditorFragment.CODE_WORK_NEW);
+                    Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment,bundle);
                     break;
                 default:break;
             }
@@ -44,11 +54,41 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
 
     @Override
     protected void initData() {
+
+        adapter = new RecyclerAdapter(new RecyclerAdapter.OnNoteItemClickListener() {
+            @Override
+            public void onNoteClick(NoteEntity note) {
+                noteViewModel.setCurrentNote(note);
+                Bundle bundle = new Bundle();
+                bundle.putInt(EditorFragment.KEY_WORK_CODE, EditorFragment.CODE_WORK_EDIT);
+                Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment,bundle);
+            }
+
+            @Override
+            public boolean onLongClick(View v, NoteEntity note) {
+                return false;
+            }
+        });
+        mViewDataBinding.list.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        mViewDataBinding.list.setAdapter(adapter);
+
+        noteViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(NoteViewModel.class);
+
+        current_folder = SpUtil.getInstance(getContext()).get("current_folder", 0);
+
+        noteViewModel.getNoteByFolderId(current_folder).observe(this, noteEntities -> {
+
+            adapter.setData(noteEntities);
+
+        });
+
     }
 
     @Override
     protected void initView() {
         initToolBar();
+
     }
 
     @Override

@@ -34,34 +34,27 @@ public class DataSourceHelper {
         return noteDao.updateNote(entities);
     }
 
-    public LiveData<List<NoteEntity>> getAllNotes() {
-        return noteDao.queryAllNotes();
-    }
-
-    public LiveData<NoteEntity> getNoteById(long id){
-        return noteDao.queryNoteByFolderId(id);
-    }
-
-
-    public LiveData<List<NoteEntity>> getAllFavoriteNotes() {
-        return noteDao.queryAllFavoriteNotes();
-    }
-
     public long deleteNotes(NoteEntity noteEntity) {
         return noteDao.deleteNote(noteEntity);
     }
 
-    public long insertFolder(FolderEntity folderEntities) {
-        return folderDao.insertFolder(folderEntities);
+    public long insertFolder(FolderEntity folderEntities) { return folderDao.insertFolder(folderEntities); }
+
+    public long upDataFolder(FolderEntity... folderEntities) { return folderDao.upDataFolder(folderEntities); }
+
+    public long deleteFolder(FolderEntity folderEntity) { return folderDao.deleteFolder(folderEntity); }
+
+    public LiveData<List<NoteEntity>> getAllNotes() {
+        return noteDao.queryAllNotes();
     }
 
-    public long upDataFolder(FolderEntity... folderEntities) {
-        return folderDao.upDataFolder(folderEntities);
-    }
+    public LiveData<List<NoteEntity>> getNoteByFolderId(long id){ return noteDao.queryNoteByFolderId(id); }
 
-    public long deleteFolder(FolderEntity folderEntity) {
-        return folderDao.deleteFolder(folderEntity);
-    }
+    public NoteEntity getNoteById(long id){ return noteDao.queryNotesById(id); }
+
+    public LiveData<List<NoteEntity>> getAllFavoriteNotes() { return noteDao.queryAllFavoriteNotes(); }
+
+    public LiveData<FolderEntity> getFolderById(long id) { return folderDao.getFolderById(id); }
 
     public LiveData<List<FolderEntity>> getAllFolder() {
         return folderDao.getAllFolder();
