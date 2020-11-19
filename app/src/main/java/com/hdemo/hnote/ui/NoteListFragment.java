@@ -10,10 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hdemo.hnote.R;
 import com.hdemo.hnote.base.BaseFragment;
+import com.hdemo.hnote.data.FolderEntity;
 import com.hdemo.hnote.data.NoteEntity;
 import com.hdemo.hnote.databinding.FragmentNoteListLayoutBinding;
+import com.hdemo.hnote.ui.widget.ComplexPopup;
 import com.hdemo.hnote.ui.widget.TitleBar;
 import com.hdemo.hnote.utils.SpUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding> {
@@ -22,7 +27,9 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
 
     private NoteViewModel noteViewModel;
 
-    private int current_folder;
+    private ComplexPopup complexPopup;
+
+    private List<FolderEntity> folderEntities = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,17 +42,23 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
     }
 
     private void initToolBar() {
-        mViewDataBinding.titleBar.setTitle("便签");
+        mViewDataBinding.titleBar.setTitle("便签", view -> {
+            complexPopup = ComplexPopup.create(getContext());
+            complexPopup.setData(folderEntities);
+            complexPopup.setAnchorView(view);
+            complexPopup.showAsDropDown();
+        });
         mViewDataBinding.titleBar.setBackIcon(R.drawable.setting);
-        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(1,R.drawable.edit,true));
+        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(1, R.drawable.edit, true));
         mViewDataBinding.titleBar.setMenuClickListener(titleMenuItem -> {
-            switch (titleMenuItem.getId()){
+            switch (titleMenuItem.getId()) {
                 case 1:
                     Bundle bundle = new Bundle();
                     bundle.putInt(EditorFragment.KEY_WORK_CODE, EditorFragment.CODE_WORK_NEW);
-                    Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment,bundle);
+                    Navigation.findNavController(requireActivity(), R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment, bundle);
                     break;
-                default:break;
+                default:
+                    break;
             }
         });
         mViewDataBinding.titleBar.setOnBackClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_noteListFragment_to_editorFragment));
@@ -58,10 +71,8 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
         adapter = new RecyclerAdapter(new RecyclerAdapter.OnNoteItemClickListener() {
             @Override
             public void onNoteClick(NoteEntity note) {
+                Navigation.findNavController(requireActivity(), R.id.fragment).navigate(R.id.action_noteListFragment_to_previewFragment);
                 noteViewModel.setCurrentNote(note);
-                Bundle bundle = new Bundle();
-                bundle.putInt(EditorFragment.KEY_WORK_CODE, EditorFragment.CODE_WORK_EDIT);
-                Navigation.findNavController(getActivity(),R.id.fragment).navigate(R.id.action_noteListFragment_to_editorFragment,bundle);
             }
 
             @Override
@@ -73,14 +84,20 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
 
         mViewDataBinding.list.setAdapter(adapter);
 
-        noteViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(NoteViewModel.class);
+        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
-        current_folder = SpUtil.getInstance(getContext()).get("current_folder", 0);
+        int current_folder = SpUtil.getInstance(getContext()).get("current_folder", 1);
 
-        noteViewModel.getNoteByFolderId(current_folder).observe(this, noteEntities -> {
+        noteViewModel.getNoteByFolderId(current_folder).observe(getViewLifecycleOwner(), noteEntities -> {
 
             adapter.setData(noteEntities);
 
+        });
+
+        noteViewModel.getAllFolder().observe(getViewLifecycleOwner(),folders->{
+            folderEntities = folders;
+            if (complexPopup!=null)
+            complexPopup.setData(folders);
         });
 
     }

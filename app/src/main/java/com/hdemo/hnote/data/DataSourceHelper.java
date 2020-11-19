@@ -54,7 +54,7 @@ public class DataSourceHelper {
 
     public LiveData<List<NoteEntity>> getAllFavoriteNotes() { return noteDao.queryAllFavoriteNotes(); }
 
-    public LiveData<FolderEntity> getFolderById(long id) { return folderDao.getFolderById(id); }
+    public FolderEntity getFolderById(long id) { return folderDao.getFolderById(id); }
 
     public LiveData<List<FolderEntity>> getAllFolder() {
         return folderDao.getAllFolder();

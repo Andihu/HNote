@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.hdemo.hnote.R;
 import com.hdemo.hnote.databinding.TitleLayoutBinding;
+
 
 public class TitleBar extends LinearLayout implements View.OnClickListener{
 
@@ -45,9 +47,11 @@ public class TitleBar extends LinearLayout implements View.OnClickListener{
         });
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title,OnClickListener onClickListener){
         titleLayoutBinding.title.setText(title);
+        titleLayoutBinding.title.setOnClickListener(onClickListener);
     }
+
 
     public void setBackIcon(@DrawableRes int res){
         titleLayoutBinding.back.setImageResource(res);

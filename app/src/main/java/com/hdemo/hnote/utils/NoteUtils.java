@@ -57,11 +57,20 @@ public class NoteUtils {
 
     public void saveNewNote(int folderId,String subject, String content , Function<Long, Void> result){
         Observable.create((ObservableOnSubscribe<Long>) emitter -> {
+            long id = -1;
+           FolderEntity folderById = dataSourceHelper.getFolderById(folderId);
+            if (folderById==null){
+                FolderEntity folderEntity = new FolderEntity();
+                folderEntity.setFoldName("新建文件夹");
+                id = dataSourceHelper.insertFolder(folderEntity);
+            }else {
+                id = folderId;
+            }
             NoteEntity noteEntity = new NoteEntity();
             noteEntity.setContent(content);
             noteEntity.setSubject(subject);
             noteEntity.setTime(System.currentTimeMillis());
-            noteEntity.setFolder_id(folderId);
+            noteEntity.setFolder_id((int) id);
             emitter.onNext( dataSourceHelper.insertNote(noteEntity));
             emitter.onComplete();
         }).compose(RxSchedulersUtils.io2main()).subscribe(id -> {

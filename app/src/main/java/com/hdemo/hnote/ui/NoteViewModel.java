@@ -19,12 +19,9 @@ import java.util.List;
 
 public class NoteViewModel extends AndroidViewModel {
 
-    private Application application;
+    private final Application application;
 
-    private DataSourceHelper dataSourceHelper;
-
-
-    private LiveData<FolderEntity> mCurrentFolder;
+    private final DataSourceHelper dataSourceHelper;
 
     private LiveData<List<NoteEntity>> mNoteEntitys;
 
@@ -48,17 +45,8 @@ public class NoteViewModel extends AndroidViewModel {
         return mCurrentNote;
     }
 
-    public LiveData<FolderEntity> getCurrentFolder() {
-        return mCurrentFolder;
-    }
-
-    public void setCurrentFolder(long id) {
-        if (mCurrentFolder == null)
-            mCurrentFolder = dataSourceHelper.getFolderById(id);
-    }
-
     public  LiveData<List<NoteEntity>> getNoteByFolderId(int id){
-        if (mNoteEntitys==null){
+        if (mNoteEntitys == null){
              mNoteEntitys = dataSourceHelper.getNoteByFolderId(id);
         }
         return mNoteEntitys;

@@ -9,7 +9,6 @@ public class FolderTable {
     }
     public static final class Columns implements BaseColumns {
         public static final String ID = "id";
-        public static final String NOTE_ID = "note_id";
         public static final String FOLDER_NAME = "folder_name";
 
         private Columns() {

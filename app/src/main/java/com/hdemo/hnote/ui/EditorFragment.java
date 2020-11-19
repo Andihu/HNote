@@ -1,5 +1,9 @@
 package com.hdemo.hnote.ui;
 
+import android.icu.lang.UCharacter;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -9,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.util.StringUtil;
 
 import com.hdemo.hnote.R;
@@ -21,6 +26,8 @@ import com.hdemo.hnote.ui.widget.TitleBar;
 import com.hdemo.hnote.utils.NoteUtils;
 import com.hdemo.hnote.utils.SpUtil;
 import com.hdemo.hnote.utils.StringUtils;
+
+import java.util.Objects;
 
 public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
 
@@ -46,15 +53,11 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
     protected void initData() {
         assert getArguments() != null;
         workCode = getArguments().getInt(KEY_WORK_CODE);
-        noteViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getActivity().getApplication()).create(NoteViewModel.class);
-        current_folder = SpUtil.getInstance(getContext()).get("current_folder", 0);
-        noteViewModel.getCurrentNote().observe(getActivity(), new Observer<NoteEntity>() {
-            @Override
-            public void onChanged(NoteEntity noteEntity) {
-                Log.e("huajin", "onChanged: " );
-                if (workCode==CODE_WORK_EDIT)
-                mViewDataBinding.editContext.setText(noteViewModel.getCurrentNote().getValue().getContent());
-            }
+        noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
+        current_folder = SpUtil.getInstance(getContext()).get("current_folder", 1);
+        noteViewModel.getCurrentNote().observe(getViewLifecycleOwner(), noteEntity -> {
+            if (workCode == CODE_WORK_EDIT)
+                mViewDataBinding.editContext.setText(Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).getContent());
         });
     }
 
@@ -64,52 +67,103 @@ public class EditorFragment extends BaseFragment<FragmentEditorLayoutBinding> {
 
         mMDWriter = new MDWriter(mViewDataBinding.editContext);
 
-        mViewDataBinding.blod.setOnClickListener(view -> mMDWriter.setAsBold());
+        mViewDataBinding.blod.setOnClickListener(view -> {
+            mMDWriter.setAsBold();
+            if (noteViewModel.getCurrentNote().getValue()!=null) {
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+            }
+        });
 
-        mViewDataBinding.heading.setOnClickListener(view -> mMDWriter.setAsHeader());
+        mViewDataBinding.heading.setOnClickListener(view -> {
+            mMDWriter.setAsHeader();
+            if (noteViewModel.getCurrentNote().getValue()!=null) {
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+            }
+        });
 
-        mViewDataBinding.blockquote.setOnClickListener(view -> mMDWriter.setAsQuote());
+        mViewDataBinding.blockquote.setOnClickListener(view -> {
+            mMDWriter.setAsQuote();
+            if (noteViewModel.getCurrentNote().getValue()!=null) {
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+            }
+        });
 
-        mViewDataBinding.justifyCenter.setOnClickListener(view -> mMDWriter.setAsCenter());
+        mViewDataBinding.justifyCenter.setOnClickListener(view -> {
+            mMDWriter.setAsCenter();
+            if (noteViewModel.getCurrentNote().getValue()!=null) {
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+            }
+        });
 
-        mViewDataBinding.unorderedList.setOnClickListener(view -> mMDWriter.setAsList());
+        mViewDataBinding.unorderedList.setOnClickListener(view -> {
+            mMDWriter.setAsList();
+            if (noteViewModel.getCurrentNote().getValue()!=null) {
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+            }
+        });
 
+        mViewDataBinding.editContext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (noteViewModel.getCurrentNote().getValue() != null) {
+                    Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setSubject(mMDWriter.getTitle());
+                    Objects.requireNonNull(noteViewModel.getCurrentNote().getValue()).setContent(mMDWriter.getContent());
+                }
+            }
+        });
     }
 
     private void initTitleBar() {
         mViewDataBinding.titleBar.setBackIcon(R.drawable.back_btn);
         mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(2, R.drawable.done_btn, true));
-        mViewDataBinding.titleBar.addMenuItem(new TitleBar.TitleMenuItem(1, R.drawable.image_btn, true));
+
         mViewDataBinding.titleBar.setMenuClickListener(titleMenuItem -> {
             switch (titleMenuItem.getId()) {
-                case 1:
-                    Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
-                    break;
                 case 2:
                     if (StringUtils.isNull(mMDWriter.getContent())) {
                         Toast.makeText(getContext(), "请输入内容", Toast.LENGTH_SHORT).show();
                     } else {
-                        NoteUtils.INSTANCE(getActivity().getApplication()).saveNewNote(current_folder, mMDWriter.getTitle(), mMDWriter.getContent(), id -> {
-                            if (id > 0) {
-                             NoteUtils.INSTANCE(getActivity().getApplication()).getNoteById(id, note -> {
-                                 if (note!=null){
-                                     noteViewModel.setCurrentNote(note);
-                                 }
-                                 Navigation.findNavController(getActivity(), R.id.fragment).navigate(R.id.action_editorFragment_to_previewFragment);
-                                 return null;
-                             });
-                            }
-                            return null;
-                        });
+                        if (workCode == CODE_WORK_NEW) {
+                            NoteUtils.INSTANCE(requireActivity().getApplication()).saveNewNote(current_folder, mMDWriter.getTitle(), mMDWriter.getContent(), id -> {
+                                if (id > 0) {
+                                    NoteUtils.INSTANCE(requireActivity().getApplication()).getNoteById(id, note -> {
+                                        Navigation.findNavController(requireActivity(), R.id.fragment).navigate(R.id.action_editorFragment_to_previewFragment);
+                                        if (note != null) {
+                                            noteViewModel.setCurrentNote(note);
+                                        }
+                                        return null;
+                                    });
+                                }
+                                return null;
+                            });
+                        } else {
+                            NoteUtils.INSTANCE(requireActivity().getApplication()).updateNote(noteViewModel.getCurrentNote().getValue(), id -> {
+                                if (id > 0) {
+                                    Toast.makeText(getContext(), "更新成功", Toast.LENGTH_SHORT).show();
+                                }
+                                return null;
+                            });
+                        }
                     }
                     break;
                 default:
                     break;
             }
         });
-        mViewDataBinding.titleBar.setOnBackClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_editorFragment_to_noteListFragment));
-
+        mViewDataBinding.titleBar.setOnBackClickListener(view -> NavHostFragment.findNavController(this).popBackStack());
     }
 
     @Override
