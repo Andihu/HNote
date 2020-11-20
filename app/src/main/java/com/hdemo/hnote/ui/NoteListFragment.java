@@ -45,7 +45,7 @@ public class NoteListFragment extends BaseFragment<FragmentNoteListLayoutBinding
         mViewDataBinding.titleBar.setTitle("便签", view -> {
             complexPopup = ComplexPopup.create(getContext());
             complexPopup.setData(folderEntities);
-            complexPopup.setAnchorView(view);
+            complexPopup.setAnchorView( mViewDataBinding.titleBar);
             complexPopup.showAsDropDown();
         });
         mViewDataBinding.titleBar.setBackIcon(R.drawable.setting);

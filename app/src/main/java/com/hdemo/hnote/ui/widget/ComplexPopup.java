@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,10 +49,7 @@ public class ComplexPopup extends BasePopup<ComplexPopup> {
 
     @Override
     protected void initAttributes() {
-        setContentView(R.layout.folder_layout, ViewGroup.LayoutParams.MATCH_PARENT,500);
-        setFocusAndOutsideEnable(false)
-                .setBackgroundDimEnable(true)
-                .setDimValue(0.5f);
+        setContentView(R.layout.folder_layout, ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -59,7 +57,31 @@ public class ComplexPopup extends BasePopup<ComplexPopup> {
         list = findViewById(R.id.list);
         edit = findViewById(R.id.edit);
         new_folder = findViewById(R.id.new_folder);
-        list.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+
+        list.setLayoutManager(new LinearLayoutManager(view.getContext()) {
+            @Override
+            public void onMeasure(@NonNull RecyclerView.Recycler recycler, @NonNull RecyclerView.State state, int widthSpec, int heightSpec) {
+                int count = state.getItemCount();
+                if (count > 0) {
+                    int realHeight = 0;
+                    int realWidth = 0;
+                    for(int i = 0;i < count; i++){
+                        View view = recycler.getViewForPosition(0);
+                        if (view != null) {
+                            measureChild(view, widthSpec, heightSpec);
+                            int measuredWidth = View.MeasureSpec.getSize(widthSpec);
+                            int measuredHeight = view.getMeasuredHeight();
+                            realWidth = Math.max(realWidth, measuredWidth);
+                            realHeight += measuredHeight;
+                        }
+                        setMeasuredDimension(realWidth, realHeight);
+                    }
+                } else {
+                    super.onMeasure(recycler, state, widthSpec, heightSpec);
+                }
+            }
+        });
+
         list.setAdapter(folderAdapter);
     }
 

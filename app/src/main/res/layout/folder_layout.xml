@@ -3,46 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/folder_bg">
+    android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
+        android:background="@drawable/folder_bg"
         android:layout_height="wrap_content"
-        android:background="@drawable/backgroud_gray"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/button_gray"
-            android:text="编辑"
-            android:textColor="#ffffff"
-            android:textSize="12sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/new_folder"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_gray"
-            android:text="新建文件夹"
-            android:textColor="#ffffff"
-            android:textSize="12sp" />
-    </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backgroud_gray"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list">
+
+            <Button
+                android:id="@+id/edit"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/button_gray"
+                android:text="编辑"
+                android:padding="0dp"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/new_folder"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/button_gray"
+                android:text="新建文件夹"
+                android:padding="0dp"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.12" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.88" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
